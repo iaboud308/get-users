@@ -5,7 +5,7 @@ import React from 'react';
 class User extends React.Component {
 
     deleteHandler = (_id) => {
-           fetch('localhost:3000/api/users/delete', {
+           fetch('https://localhost:3000/api/users/delete', {
             method: 'DELETE',
             body: JSON.stringify(_id),
             headers: {
