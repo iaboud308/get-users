@@ -4,17 +4,17 @@ import React from 'react';
 
 class User extends React.Component {
 
-    deleteHandler = (_id) => {
-           fetch('https://localhost:3000/api/users/delete', {
+    deleteHandler = (id) => {
+           fetch('https://asoat.herokuapp.com/api/users/delete', {
             method: 'DELETE',
-            body: JSON.stringify(_id),
+            body: JSON.stringify({'id': id}),
             headers: {
                 'Accept': '*/*',
                 'Content-Type': 'application/json'
             }
         })
          .then( (response) => {
-             return response.json();
+             return response.text();
          })
           .then( (data) => {
               console.log(data);
@@ -37,6 +37,7 @@ class User extends React.Component {
                 <button className = 'btn btn-danger btn-sm'
                 onClick = {(event) => {
                     this.deleteHandler(_id);
+                    this.props.refresh();
                 }}>Delete</button>
             </td>
         </tr>

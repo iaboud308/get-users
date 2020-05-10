@@ -17,7 +17,6 @@ class NewUserForm extends Component {
     }
 
     formSubmit = (event) => {
-        console.log(this.state);
         fetch('https://asoat.herokuapp.com/api/users/add', {
             method: 'POST',
             headers: {
@@ -26,15 +25,28 @@ class NewUserForm extends Component {
             body: JSON.stringify(this.state)            
         })
          .then( (response) => {
-             return response.json();
+             return response.text();
          })
           .then( (data) => {
               console.log(data);
+              this.props.refresh();
+              this.clearFields();
           })
           .catch( (error) => {
               console.log(error);
           })
     }
+
+
+    clearFields = () => {
+        this.setState({ 
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: '',
+            userStatus: 'user' })
+    }
+
 
     render() {
 

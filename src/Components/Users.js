@@ -5,23 +5,43 @@ import NewUserForm from './NewUserForm';
 class Users extends React.Component {
 
     state = {
-        users: []
+        users: [],
+        refresh: false
     }
 
     componentDidMount() {
+        this.fetchUsers();
+    }
+
+
+
+
+    fetchUsers = () => {
         fetch('https://asoat.herokuapp.com/api/users')
          .then( (response) => {
              return response.json();
          })
          .then( (data) => {
              this.setState({users: data.users})
+             this.setState({ refresh: false })
          })
          .catch( (error) => {
              console.log(error)
          })
     }
 
+
+
+    refreshUsers = () => {
+        this.setState({ refresh: true })
+    }
+
+    
     render() {
+
+        if (this.state.refresh === true) {
+            this.fetchUsers();
+        }
 
         return (
             <table className = 'table table-dark mt-4'>
@@ -36,9 +56,9 @@ class Users extends React.Component {
                 </thead>
                 <tbody>
                 {this.state.users.map( (user) => {
-                   return <User key = {user._id} user = {user} />
+                   return <User key = {user._id} user = {user} refresh = { this.refreshUsers } />
                 })}
-                <NewUserForm />
+                <NewUserForm refresh = { this.refreshUsers }/>
                 </tbody>
             </table>
         )
