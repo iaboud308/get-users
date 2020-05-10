@@ -14,8 +14,6 @@ class Users extends React.Component {
     }
 
 
-
-
     fetchUsers = () => {
         fetch('https://asoat.herokuapp.com/api/users')
          .then( (response) => {
@@ -29,7 +27,6 @@ class Users extends React.Component {
              console.log(error)
          })
     }
-
 
 
     refreshUsers = () => {

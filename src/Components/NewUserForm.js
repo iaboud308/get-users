@@ -17,6 +17,11 @@ class NewUserForm extends Component {
     }
 
     formSubmit = (event) => {
+        
+        if (!this.formValidation()) {
+            return
+        } 
+        
         fetch('https://asoat.herokuapp.com/api/users/add', {
             method: 'POST',
             headers: {
@@ -37,6 +42,14 @@ class NewUserForm extends Component {
           })
     }
 
+
+    formValidation = () => {
+        if (this.state.firstName === '' || this.state.lastName === '' || this.state.email === '' || this.state.password === '') {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     clearFields = () => {
         this.setState({ 
